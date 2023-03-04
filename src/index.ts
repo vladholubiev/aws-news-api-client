@@ -29,9 +29,9 @@ async function fetchPageOfNewsBare(params: {
   url.searchParams.set('item.directoryId', 'whats-new');
   url.searchParams.set('sort_by', 'item.additionalFields.postDateTime');
   url.searchParams.set('sort_order', 'desc');
-  url.searchParams.set('size', pageSize.toString());
   url.searchParams.set('item.locale', 'en_US');
-  url.searchParams.set('page', pageNumber.toString());
+  url.searchParams.set('size', pageSize.toString());
+  url.searchParams.set('page', (pageNumber - 1).toString());
   url.searchParams.set('tags.id', `whats-new#year#${year}`);
 
   return (await fetch(url)).json();

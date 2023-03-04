@@ -18,6 +18,7 @@ const {
 } = require('@vladholubiev/aws-news-api-client');
 
 // fetches 100 news from 2023
+// page numbering starts from 1
 await fetchPageOfNews({year: 2023, pageNumber: 1, pageSize: 100});
 
 // returns total number of pages for 2023, useful for iteration with the fetchPageOfNews method
