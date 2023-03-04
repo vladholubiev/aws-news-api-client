@@ -1,6 +1,6 @@
 {
   "name": "@vladholubiev/aws-news-api-client",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "AWS News API Client with retry behavior",
   "license": "MIT",
   "author": {
