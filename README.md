@@ -11,9 +11,10 @@ $ yarn add aws-news-api-client
 ## Usage
 
 ```js
-const {fetchPageOfNews} = require('aws-news-api-client');
+const {fetchPageOfNews, getTotalPagesCount} = require('aws-news-api-client');
 
 await fetchPageOfNews(1, 50); // page, pageSize
+await getTotalPagesCount(50); // pageSize
 ```
 
 ## Publish
