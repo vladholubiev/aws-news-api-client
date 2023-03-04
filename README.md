@@ -13,11 +13,14 @@ $ yarn add @vladholubiev/aws-news-api-client
 ```js
 const {fetchPageOfNews, getTotalPagesCount} = require('@vladholubiev/aws-news-api-client');
 
-await fetchPageOfNews(1, 50); // page, pageSize
-await getTotalPagesCount(50); // pageSize
+await fetchPageOfNews({year: 2023, pageNumber: 1, pageSize: 100});
+await getTotalPagesCount({year: 2023, pageSize: 100});
 ```
 
-`fetchPageOfNews` has retry logic, so it will retry a request for up to 5 times
+`fetchPageOfNews` has retry logic, so it will retry a request for up to 5 times.
+
+**Note:** API doesn't return more than 100th page. In 2022 there were 2103 news. So if your page size is 100, you will get 21 pages.
+Don't select page size < 22, otherwise you'll not get all the news.
 
 ## Publish
 

@@ -1,7 +1,7 @@
 import {fetchPageOfNews, getTotalPagesCount} from './index';
 
 it('should return page of news in the expected format', async () => {
-  const pageOfNews = await fetchPageOfNews(1);
+  const pageOfNews = await fetchPageOfNews({year: 2023, pageNumber: 1, pageSize: 10});
 
   expect(pageOfNews).toEqual(
     expect.objectContaining({
@@ -23,7 +23,7 @@ it('should return page of news in the expected format', async () => {
 });
 
 it('should return total pages count', async () => {
-  const totalPagesCount = await getTotalPagesCount(100);
+  const totalPagesCount = await getTotalPagesCount({year: 2022, pageSize: 100});
 
-  expect(totalPagesCount).toBeGreaterThan(100);
+  expect(totalPagesCount).toBeGreaterThan(10);
 });

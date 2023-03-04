@@ -4,11 +4,12 @@ import type {AWSNewsAPIPageResponse} from './types';
 
 export type {AWSNewsAPIPageResponse} from './types';
 
-export function fetchPageOfNews(
-  pageNumber: number,
-  pageSize = 100
-): Promise<AWSNewsAPIPageResponse> {
-  return pRetry(() => fetchPageOfNewsBare(pageNumber, pageSize), {
+export function fetchPageOfNews(params: {
+  year: number; // year parameter is needed, b/c API doesn't return beyond 100th page
+  pageNumber: number;
+  pageSize: number;
+}): Promise<AWSNewsAPIPageResponse> {
+  return pRetry(() => fetchPageOfNewsBare(params), {
     forever: false,
     retries: 5,
     maxTimeout: 5 * 1000,
@@ -16,10 +17,12 @@ export function fetchPageOfNews(
   });
 }
 
-async function fetchPageOfNewsBare(
-  pageNumber: number,
-  pageSize = 100
-): Promise<AWSNewsAPIPageResponse> {
+async function fetchPageOfNewsBare(params: {
+  year: number;
+  pageNumber: number;
+  pageSize: number;
+}): Promise<AWSNewsAPIPageResponse> {
+  const {year, pageSize, pageNumber} = params;
   const url = new URL('https://aws.amazon.com/api/dirs/items/search');
 
   url.searchParams.set('item.directoryId', 'whats-new');
@@ -28,12 +31,17 @@ async function fetchPageOfNewsBare(
   url.searchParams.set('size', pageSize.toString());
   url.searchParams.set('item.locale', 'en_US');
   url.searchParams.set('page', pageNumber.toString());
+  url.searchParams.set('tags.id', `whats-new#year#${year}`);
 
   return (await fetch(url)).json();
 }
 
-export async function getTotalPagesCount(pageSize: number): Promise<number> {
-  const firstPage = await fetchPageOfNewsBare(1, 1);
+export async function getTotalPagesCount(params: {
+  year: number;
+  pageSize: number;
+}): Promise<number> {
+  const {year, pageSize} = params;
+  const firstPage = await fetchPageOfNewsBare({year, pageNumber: 1, pageSize});
 
   return Math.ceil(firstPage.metadata.totalHits / pageSize);
 }
