@@ -1,12 +1,12 @@
 {
-  "name": "@shelf/xxxxxx",
+  "name": "@vladholubiev/aws-news-api-client",
   "version": "0.0.0",
-  "description": "xxxxxx",
+  "description": "AWS News API Client with retry behavior",
   "license": "MIT",
   "author": {
     "name": "Vlad Holubiev",
-    "email": "vlad@shelf.io",
-    "url": "https://shelf.io"
+    "email": "hello@vladholubiev.com",
+    "url": "https://vladholubiev.com"
   },
   "main": "lib",
   "types": "lib/index.d.ts",

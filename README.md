@@ -1,17 +1,17 @@
-# aws-news-api-client [![CircleCI](https://circleci.com/gh/shelfio/aws-news-api-client/tree/master.svg?style=svg)](https://circleci.com/gh/shelfio/aws-news-api-client/tree/master)![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
+# aws-news-api-client [![CircleCI](https://circleci.com/gh/vladgolubev/aws-news-api-client/tree/master.svg?style=svg)](https://circleci.com/gh/shelfio/aws-news-api-client/tree/master)![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
-> aws-news-api-client description
+> AWS News API Client with retry behavior
 
 ## Install
 
 ```
-$ yarn add aws-news-api-client
+$ yarn add @vladholubiev/aws-news-api-client
 ```
 
 ## Usage
 
 ```js
-const {fetchPageOfNews, getTotalPagesCount} = require('aws-news-api-client');
+const {fetchPageOfNews, getTotalPagesCount} = require('@vladholubiev/aws-news-api-client');
 
 await fetchPageOfNews(1, 50); // page, pageSize
 await getTotalPagesCount(50); // pageSize
