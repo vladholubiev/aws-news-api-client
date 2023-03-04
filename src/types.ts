@@ -1,4 +1,4 @@
-export type APIResponse = {
+export type AWSNewsAPIPageResponse = {
   metadata: {count: number; totalHits: number};
   fieldTypes: {
     relatedBlog: string;

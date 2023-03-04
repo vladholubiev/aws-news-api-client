@@ -1,7 +1,9 @@
 import {URL} from 'url';
-import type {APIResponse} from './types';
+import type {AWSNewsAPIPageResponse} from './types';
 
-export async function fetchPageOfNews(page: number, size = 100): Promise<APIResponse> {
+export type {AWSNewsAPIPageResponse} from './types';
+
+export async function fetchPageOfNews(page: number, size = 100): Promise<AWSNewsAPIPageResponse> {
   const url = new URL('https://aws.amazon.com/api/dirs/items/search');
 
   url.searchParams.set('item.directoryId', 'whats-new');
