@@ -1,9 +1,22 @@
 import {URL} from 'url';
+import pRetry from 'p-retry';
 import type {AWSNewsAPIPageResponse} from './types';
 
 export type {AWSNewsAPIPageResponse} from './types';
 
-export async function fetchPageOfNews(
+export function fetchPageOfNews(
+  pageNumber: number,
+  pageSize = 100
+): Promise<AWSNewsAPIPageResponse> {
+  return pRetry(() => fetchPageOfNewsBare(pageNumber, pageSize), {
+    forever: false,
+    retries: 5,
+    maxTimeout: 5 * 1000,
+    factor: 1.3,
+  });
+}
+
+async function fetchPageOfNewsBare(
   pageNumber: number,
   pageSize = 100
 ): Promise<AWSNewsAPIPageResponse> {
@@ -20,7 +33,7 @@ export async function fetchPageOfNews(
 }
 
 export async function getTotalPagesCount(pageSize: number): Promise<number> {
-  const firstPage = await fetchPageOfNews(1, 1);
+  const firstPage = await fetchPageOfNewsBare(1, 1);
 
   return Math.ceil(firstPage.metadata.totalHits / pageSize);
 }

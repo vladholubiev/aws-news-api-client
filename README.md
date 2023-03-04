@@ -17,6 +17,8 @@ await fetchPageOfNews(1, 50); // page, pageSize
 await getTotalPagesCount(50); // pageSize
 ```
 
+`fetchPageOfNews` has retry logic, so it will retry a request for up to 5 times
+
 ## Publish
 
 ```sh
