@@ -3,6 +3,7 @@ import pRetry from 'p-retry';
 import type {AWSNewsAPIPageResponse} from './types';
 
 export type {AWSNewsAPIPageResponse} from './types';
+export {getYearsWithData} from './helpers';
 
 export function fetchPageOfNews(params: {
   year: number; // year parameter is needed, b/c API doesn't return beyond 100th page

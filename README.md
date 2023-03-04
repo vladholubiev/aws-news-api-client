@@ -11,10 +11,19 @@ $ yarn add @vladholubiev/aws-news-api-client
 ## Usage
 
 ```js
-const {fetchPageOfNews, getTotalPagesCount} = require('@vladholubiev/aws-news-api-client');
+const {
+  fetchPageOfNews,
+  getTotalPagesCount,
+  getYearsWithData,
+} = require('@vladholubiev/aws-news-api-client');
 
+// fetches 100 news from 2023
 await fetchPageOfNews({year: 2023, pageNumber: 1, pageSize: 100});
+
+// returns total number of pages for 2023, useful for iteration with the fetchPageOfNews method
 await getTotalPagesCount({year: 2023, pageSize: 100});
+
+getYearsWithData(); // returns array of years with news from 2004 till now
 ```
 
 `fetchPageOfNews` has retry logic, so it will retry a request for up to 5 times.
