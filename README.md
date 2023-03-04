@@ -11,9 +11,9 @@ $ yarn add aws-news-api-client
 ## Usage
 
 ```js
-const {getFoo} = require('aws-news-api-client');
+const {fetchPageOfNews} = require('aws-news-api-client');
 
-getFoo();
+await fetchPageOfNews(1, 50); // page, pageSize
 ```
 
 ## Publish
