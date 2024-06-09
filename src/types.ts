@@ -5,10 +5,15 @@ export type AWSNewsAPIPageResponse = {
     headline: string;
     headlineUrl: string;
     modifiedDate: string;
+    nofollow: string;
+    noindex: string;
+    nosnippet: string;
     postBody: string;
     postDateTime: string;
     postSummary: string;
-    relatedBlog: string;
+    regionalAvailability: string;
+    Video: string;
+    videoImageUrl: string;
   };
   items: Item[];
 };
@@ -31,71 +36,24 @@ export type Tag = {
 };
 
 type PostItem = {
+  id: string;
+  locale: string;
+  directoryId: string;
+  name: string;
   author: string;
   createdBy: string;
+  lastUpdatedBy: string;
   dateCreated: string;
   dateUpdated: string;
-  directoryId: string;
-  id: string;
-  lastUpdatedBy: string;
-  locale: string;
-  name: string;
-  numImpressions: number;
-  score: number;
   additionalFields: {
-    contentType: string;
-    headline: string;
-    headlineUrl: string;
-    modifiedDate: string;
+    regionalAvailability?: string;
+    nofollow: string;
+    noindex: string;
     postBody: string;
+    nosnippet: string;
+    headlineUrl: string;
     postDateTime: string;
-    postSummary: string;
+    contentType?: string;
+    headline: string;
   };
 };
-
-// export type Root = {
-//   items: {
-//     item: {
-//       id: string;
-//       locale: string;
-//       directoryId: string;
-//       name: string;
-//       author: string;
-//       createdBy: string;
-//       lastUpdatedBy: string;
-//       dateCreated: string;
-//       dateUpdated: string;
-//       additionalFields: {
-//         regionalAvailability?: string;
-//         nofollow: string;
-//         noindex: string;
-//         postBody: string;
-//         nosnippet: string;
-//         headlineUrl: string;
-//         postDateTime: string;
-//         contentType?: string;
-//         headline: string;
-//       };
-//     };
-//     tags: Tag[];
-//   }[];
-//   metadata: {
-//     count: number;
-//     totalHits: number;
-//   };
-//   fieldTypes: {
-//     contentType: string;
-//     headline: string;
-//     headlineUrl: string;
-//     modifiedDate: string;
-//     nofollow: string;
-//     noindex: string;
-//     nosnippet: string;
-//     postBody: string;
-//     postDateTime: string;
-//     postSummary: string;
-//     regionalAvailability: string;
-//     Video: string;
-//     videoImageUrl: string;
-//   };
-// };

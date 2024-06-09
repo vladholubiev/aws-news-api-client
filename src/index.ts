@@ -26,13 +26,13 @@ async function fetchPageOfNewsBare(params: {
   const {year, pageSize, pageNumber} = params;
   const url = new URL('https://aws.amazon.com/api/dirs/items/search');
 
-  url.searchParams.set('item.directoryId', 'whats-new');
+  url.searchParams.set('item.directoryId', 'whats-new-v2');
   url.searchParams.set('sort_by', 'item.additionalFields.postDateTime');
   url.searchParams.set('sort_order', 'desc');
   url.searchParams.set('item.locale', 'en_US');
   url.searchParams.set('size', pageSize.toString());
   url.searchParams.set('page', (pageNumber - 1).toString());
-  url.searchParams.set('tags.id', `whats-new#year#${year}`);
+  url.searchParams.set('tags.id', `whats-new-v2#year#${year}`);
 
   return (await fetch(url)).json();
 }
