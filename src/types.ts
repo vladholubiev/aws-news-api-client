@@ -1,54 +1,101 @@
 export type AWSNewsAPIPageResponse = {
   metadata: {count: number; totalHits: number};
   fieldTypes: {
-    relatedBlog: string;
-    postBody: string;
-    modifiedDate: string;
+    contentType: string;
+    headline: string;
     headlineUrl: string;
+    modifiedDate: string;
+    postBody: string;
     postDateTime: string;
     postSummary: string;
-    headline: string;
-    contentType: string;
+    relatedBlog: string;
   };
   items: Item[];
 };
 
 type Item = {
-  tags: Tag[];
   item: PostItem;
+  tags: Tag[];
 };
 
 export type Tag = {
-  tagNamespaceId: string;
   createdBy: string;
-  name: string;
-  dateUpdated: string;
-  locale: string;
-  lastUpdatedBy: string;
   dateCreated: string;
+  dateUpdated: string;
   description: string;
   id: string;
+  lastUpdatedBy: string;
+  locale: string;
+  name: string;
+  tagNamespaceId: string;
 };
 
 type PostItem = {
-  createdBy: string;
-  locale: string;
   author: string;
-  dateUpdated: string;
-  score: number;
-  numImpressions: number;
-  name: string;
+  createdBy: string;
   dateCreated: string;
-  id: string;
+  dateUpdated: string;
   directoryId: string;
+  id: string;
   lastUpdatedBy: string;
+  locale: string;
+  name: string;
+  numImpressions: number;
+  score: number;
   additionalFields: {
-    postBody: string;
-    modifiedDate: string;
-    headlineUrl: string;
-    postDateTime: string;
-    postSummary: string;
     contentType: string;
     headline: string;
+    headlineUrl: string;
+    modifiedDate: string;
+    postBody: string;
+    postDateTime: string;
+    postSummary: string;
   };
 };
+
+// export type Root = {
+//   items: {
+//     item: {
+//       id: string;
+//       locale: string;
+//       directoryId: string;
+//       name: string;
+//       author: string;
+//       createdBy: string;
+//       lastUpdatedBy: string;
+//       dateCreated: string;
+//       dateUpdated: string;
+//       additionalFields: {
+//         regionalAvailability?: string;
+//         nofollow: string;
+//         noindex: string;
+//         postBody: string;
+//         nosnippet: string;
+//         headlineUrl: string;
+//         postDateTime: string;
+//         contentType?: string;
+//         headline: string;
+//       };
+//     };
+//     tags: Tag[];
+//   }[];
+//   metadata: {
+//     count: number;
+//     totalHits: number;
+//   };
+//   fieldTypes: {
+//     contentType: string;
+//     headline: string;
+//     headlineUrl: string;
+//     modifiedDate: string;
+//     nofollow: string;
+//     noindex: string;
+//     nosnippet: string;
+//     postBody: string;
+//     postDateTime: string;
+//     postSummary: string;
+//     regionalAvailability: string;
+//     Video: string;
+//     videoImageUrl: string;
+//   };
+// };
