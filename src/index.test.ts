@@ -1,24 +1,5 @@
 import {fetchPageOfNews, getTotalPagesCount} from './index';
 
-function extractKeysFlat(obj: Record<string, any>, prefix = ''): string[] {
-  const keys: string[] = [];
-
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      const fullKey = prefix ? `${prefix}.${key}` : key;
-      const value = obj[key];
-
-      if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-        keys.push(...extractKeysFlat(value, fullKey));
-      } else {
-        keys.push(fullKey);
-      }
-    }
-  }
-
-  return keys.sort();
-}
-
 it('should return page of news in the expected format', async () => {
   const pageOfNews = await fetchPageOfNews({year: 2024, pageNumber: 8, pageSize: 3});
 
@@ -103,6 +84,87 @@ it('should return page of news in the expected format', async () => {
   `);
 });
 
+it('should return page of news in the expected format from 2025', async () => {
+  const pageOfNews = await fetchPageOfNews({year: 2025, pageNumber: 1, pageSize: 3});
+
+  expect(pageOfNews.items.map(i => i.item)).toMatchInlineSnapshot(`
+    [
+      {
+        "additionalFields": {
+          "headline": "Amazon EC2 R8g instances now available in additional regions",
+          "headlineUrl": "/about-aws/whats-new/2025/07/amazon-ec2-r8g-instances-additional-regions",
+          "nofollow": "0",
+          "noindex": "0",
+          "nosnippet": "0",
+          "postBody": "<p>Starting today, Amazon Elastic Compute Cloud (Amazon EC2) R8g instances are available in Asia Pacific (Seoul), and AWS Asia Pacific (Malaysia) regions. These instances are powered by AWS Graviton4 processors and deliver up to 30% better performance compared to AWS Graviton3-based instances. Amazon EC2 R8g instances are ideal for memory-intensive workloads such as databases, in-memory caches, and real-time big data analytics. These instances are built on the <a href="https://aws.amazon.com/ec2/nitro/" target="_blank">AWS Nitro System</a>, which oﬄoads CPU virtualization, storage, and networking functions to dedicated hardware and software to enhance the performance and security of your workloads.<br />
+    <br />
+    AWS Graviton4-based Amazon EC2 instances deliver the best performance and energy efficiency for a broad range of workloads running on Amazon EC2. AWS Graviton4-based R8g instances offer larger instance sizes with up to 3x more vCPU (up to 48xlarge) and memory (up to 1.5TB) than Graviton3-based R7g instances. These instances are up to 30% faster for web applications, 40% faster for databases, and 45% faster for large Java applications compared to AWS Graviton3-based R7g instances. R8g instances are available in 12 different instance sizes, including two bare metal sizes. They offer up to 50 Gbps enhanced networking bandwidth and up to 40 Gbps of bandwidth to the Amazon Elastic Block Store (Amazon EBS).<br />
+    <br />
+    To learn more, see <a href="https://aws.amazon.com/ec2/instance-types/r8g/" target="_blank">Amazon EC2 R8g Instances</a>. To explore how to migrate your workloads to Graviton-based instances, see <a href="https://aws.amazon.com/ec2/graviton/fast-start/" target="_blank">AWS Graviton Fast Start program</a> and <a href="https://github.com/aws/porting-advisor-for-graviton" target="_blank">Porting Advisor for Graviton</a>. To get started, see the <a href="https://console.aws.amazon.com/" target="_blank">AWS Management Console</a>.</p>
+    ",
+          "postDateTime": "2025-07-03T18:00:00-04:00",
+        },
+        "dateCreated": "2025-06-27T15:26:53+0000",
+        "dateUpdated": "2025-07-03T22:05:34+0000",
+        "directoryId": "whats-new-v2",
+        "id": "whats-new-v2#p259822440",
+        "locale": "en_US",
+        "name": "13P1aAp7eHqfD1k3LvHVf1",
+      },
+      {
+        "additionalFields": {
+          "headline": "Amazon SNS now supports delivery to Amazon Data Firehose in three additional AWS Regions",
+          "headlineUrl": "/about-aws/whats-new/2025/07/amazon-sns-data-firehose-additional-aws-regions",
+          "nofollow": "0",
+          "noindex": "0",
+          "nosnippet": "0",
+          "postBody": "<p><a href="https://aws.amazon.com/sns/" target="_blank">Amazon Simple Notification Services (Amazon SNS)</a> now supports notification delivery to Amazon Data Firehose endpoints in three additional AWS Regions, Asia Pacific (Taipei), Asia Pacific (Thailand) and Mexico (Central) Regions.<br />
+    <br />
+    You can now use Amazon SNS to deliver notifications to Amazon Data Firehose (Firehose) endpoints for storage and analysis. Through Firehose delivery streams, customers can deliver events to AWS destinations such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, and Amazon OpenSearch Service, or to third-party destinations such as Datadog, New Relic, MongoDB, and Splunk.<br />
+    <br />
+    To get started, see the following resources:</p>
+
+    <ul>
+    	<li><a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html" target="_blank">Fanout to Firehose delivery streams</a> in the <em>Amazon SNS Developer Guide</em>.</li>
+    	<li><a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html" target="_blank">Create Firehose Stream</a> in the<em><em> </em>Amazon Data Firehose Developer Guide</em>.</li>
+    	<li><a href="https://aws.amazon.com/sns/pricing/#Standard_topics" target="_blank">SNS pricing for deliveries to Amazon Data Firehose</a> in the <em>Amazon SNS Pricing Page</em>.</li>
+    </ul>
+    ",
+          "postDateTime": "2025-07-03T17:59:00-04:00",
+        },
+        "dateCreated": "2025-07-01T18:54:52+0000",
+        "dateUpdated": "2025-07-03T22:03:16+0000",
+        "directoryId": "whats-new-v2",
+        "id": "whats-new-v2#p247066227",
+        "locale": "en_US",
+        "name": "g3LiLnGSov9a7gX73hkgfW",
+      },
+      {
+        "additionalFields": {
+          "headline": "AWS Fargate now supports SOCI Index Manifest v2 for greater deployment consistency",
+          "headlineUrl": "/about-aws/whats-new/2025/07/aws-fargate-soci-index-manifest-v2-deployment-consistency",
+          "nofollow": "0",
+          "noindex": "0",
+          "nosnippet": "0",
+          "postBody": "<p>Amazon ECS customers using AWS Fargate launch mode now benefit from improved deployment consistency with SOCI Index Manifest v2 support. <a href="https://github.com/awslabs/soci-snapshotter" target="_blank">Seekable OCI (SOCI)</a> accelerates Amazon ECS task launches by enabling containers to start running before the full container image is downloaded. SOCI Index Manifest v2 uses a cryptographic method to establish an explicit link between the image and its manifest, ensuring integrity and consistency during and across all deployment stages.<br />
+    <br />
+    To get started, create a SOCI index using the new convert subcommand in the soci CLI, available from the <a href="https://github.com/awslabs/soci-snapshotter" target="_blank">SOCI Snapshotter GitHub repository</a>. Once generated, push the container image along with the SOCI index to your Amazon ECR repository, and use it to launch Amazon ECS tasks on AWS Fargate.<br />
+    <br />
+    As of today, SOCI Index Manifest v2 is the default mechanism for using SOCI with ECS and Fargate. If you&#39;re still using the legacy Manifest v1 implementation, we recommend upgrading to take advantage of the improved reliability and consistency. For more information, see the <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html" target="_blank">documentation on using SOCI Index Manifest v2 with Amazon ECS and AWS Fargate</a> and the <a href="https://aws.amazon.com/blogs/containers/improving-amazon-ecs-deployment-consistency-with-soci-index-manifest-v2" target="_blank">blog post</a>.</p>
+    ",
+          "postDateTime": "2025-07-03T15:30:00-04:00",
+        },
+        "dateCreated": "2025-06-12T16:14:56+0000",
+        "dateUpdated": "2025-07-03T19:35:10+0000",
+        "directoryId": "whats-new-v2",
+        "id": "whats-new-v2#p246039443",
+        "locale": "en_US",
+        "name": "sUBkGDh3WW7GzjvfbwQqKs",
+      },
+    ]
+  `);
+});
+
 it('should return total pages count', async () => {
   const totalPagesCount = await getTotalPagesCount({year: 2024, pageSize: 100});
 
@@ -137,3 +199,22 @@ it('should return expected object structure keys (shows removed keys in failure)
     ]
   `);
 });
+
+function extractKeysFlat(obj: Record<string, any>, prefix = ''): string[] {
+  const keys: string[] = [];
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const fullKey = prefix ? `${prefix}.${key}` : key;
+      const value = obj[key];
+
+      if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+        keys.push(...extractKeysFlat(value, fullKey));
+      } else {
+        keys.push(fullKey);
+      }
+    }
+  }
+
+  return keys.sort();
+}
