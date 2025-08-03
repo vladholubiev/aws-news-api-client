@@ -40,9 +40,9 @@ type PostItem = {
   locale: string;
   directoryId: string;
   name: string;
-  author: string;
-  createdBy: string;
-  lastUpdatedBy: string;
+  author?: string;
+  createdBy?: string;
+  lastUpdatedBy?: string;
   dateCreated: string;
   dateUpdated: string;
   additionalFields: {
