@@ -11,7 +11,6 @@ export function fetchPageOfNews(params: {
   pageSize: number;
 }): Promise<AWSNewsAPIPageResponse> {
   return pRetry(() => fetchPageOfNewsBare(params), {
-    forever: false,
     retries: 5,
     maxTimeout: 5 * 1000,
     factor: 1.3,
@@ -33,11 +32,15 @@ async function fetchWithTagFormat(params: {
   url.searchParams.set('item.locale', 'en_US');
   url.searchParams.set('size', pageSize.toString());
   url.searchParams.set('page', (pageNumber - 1).toString());
-  
-  const tagId = tagFormat === 'old' 
-    ? `whats-new-v2#year#${year}`
-    : `GLOBAL#local-tags-whats-new-v2-year#${year}`;
-  
+
+  let tagId: string;
+
+  if (tagFormat === 'old') {
+    tagId = `whats-new-v2#year#${year}`;
+  } else {
+    tagId = `GLOBAL#local-tags-whats-new-v2-year#${year}`;
+  }
+
   url.searchParams.set('tags.id', tagId);
 
   return (await fetch(url)).json();
@@ -68,18 +71,19 @@ function mergeAndDeduplicateResults(
 
   // Sort merged items by postDateTime (desc) to maintain consistent ordering
   mergedItems.sort((a, b) => {
-    const dateA = new Date(a.item.additionalFields.postDateTime);
-    const dateB = new Date(b.item.additionalFields.postDateTime);
+    const dateA = new Date(a.item.additionalFields.postDateTime ?? 0);
+    const dateB = new Date(b.item.additionalFields.postDateTime ?? 0);
+
     return dateB.getTime() - dateA.getTime();
   });
 
   return {
     metadata: {
       count: mergedItems.length,
-      totalHits: oldFormatResult.metadata.totalHits + newFormatResult.metadata.totalHits
+      totalHits: oldFormatResult.metadata.totalHits + newFormatResult.metadata.totalHits,
     },
     fieldTypes: oldFormatResult.fieldTypes,
-    items: mergedItems
+    items: mergedItems,
   };
 }
 
@@ -88,37 +92,37 @@ async function fetchPageOfNewsBare(params: {
   pageNumber: number;
   pageSize: number;
 }): Promise<AWSNewsAPIPageResponse> {
-  const {year, pageSize, pageNumber} = params;
+  const {year} = params;
 
   // Smart format selection based on year
   if (year <= 2024) {
     // Historical data: use old format only
     return fetchWithTagFormat({...params, tagFormat: 'old'});
   }
-  
+
   if (year >= 2026) {
     // Future data: use new format only
     return fetchWithTagFormat({...params, tagFormat: 'new'});
   }
-  
+
   // Year 2025: transition year, try both formats and merge
   const oldFormatResult = await fetchWithTagFormat({...params, tagFormat: 'old'});
   const newFormatResult = await fetchWithTagFormat({...params, tagFormat: 'new'});
-  
+
   // If both have data, merge them
   if (oldFormatResult.items.length > 0 && newFormatResult.items.length > 0) {
     return mergeAndDeduplicateResults(oldFormatResult, newFormatResult);
   }
-  
+
   // If only one has data, return that one
   if (oldFormatResult.items.length > 0) {
     return oldFormatResult;
   }
-  
+
   if (newFormatResult.items.length > 0) {
     return newFormatResult;
   }
-  
+
   // If neither has data, return the old format result (maintains original behavior)
   return oldFormatResult;
 }

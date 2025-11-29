@@ -24,15 +24,15 @@ type Item = {
 };
 
 export type Tag = {
-  createdBy: string;
-  dateCreated: string;
-  dateUpdated: string;
-  description: string;
   id: string;
-  lastUpdatedBy: string;
   locale: string;
   name: string;
   tagNamespaceId: string;
+  description?: string;
+  dateCreated?: string;
+  dateUpdated?: string;
+  createdBy?: string;
+  lastUpdatedBy?: string;
 };
 
 type PostItem = {
@@ -46,14 +46,18 @@ type PostItem = {
   dateCreated: string;
   dateUpdated: string;
   additionalFields: {
-    regionalAvailability?: string;
-    nofollow: string;
-    noindex: string;
-    postBody: string;
-    nosnippet: string;
-    headlineUrl: string;
-    postDateTime: string;
+    headline?: string;
+    headlineUrl?: string;
+    postBody?: string;
+    postDateTime?: string;
+    postSummary?: string;
+    modifiedDate?: string;
     contentType?: string;
-    headline: string;
+    regionalAvailability?: string;
+    videoImageUrl?: string;
+    Video?: string;
+    nofollow?: string;
+    noindex?: string;
+    nosnippet?: string;
   };
 };
